@@ -28,7 +28,6 @@ public class CardReader : XRSocketInteractor
             {
                 swipeInProgress = false;
             }
-            Debug.Log("" + dot + " " + (1 - uprightErrorRange) + " : No more swipe");
         }
     }
 
@@ -38,20 +37,17 @@ public class CardReader : XRSocketInteractor
         cardSwipeStart = args.interactableObject.transform.position;
         swipeInProgress = true;
         keyCardTransform = args.interactableObject.transform;
-        Debug.Log("OnHoverEntered");
     }
 
     protected override void OnHoverExited(HoverExitEventArgs args)
     {
         base.OnHoverExited(args);
         cardSwipeEnd = args.interactableObject.transform.position;
-        Debug.Log("OnHoverExited");
         if (swipeInProgress)
         {
             if ((cardSwipeEnd - cardSwipeStart).y < -0.8f * (swipeEndPoint.position - swipeStartPoint.position).y)
             {
                 //Remove the lock
-                Debug.Log("Correct swipe ! " + cardSwipeEnd + " " + cardSwipeStart + " " + (cardSwipeEnd - cardSwipeStart).y + " " + (swipeEndPoint.position - swipeStartPoint.position).y);
                 lockBar.SetActive(false);
             }
         }
